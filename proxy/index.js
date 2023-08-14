@@ -10,7 +10,7 @@ const user = {
 
 const userProxy = new Proxy(user, {
   get: (target, property) => {
-    return `${new Date()} | The value of ${property} is ${new Reflect.get(
+    return `${new Date()} | The value of ${property} is ${Reflect.get(
       target,
       property
     )}`;
@@ -43,6 +43,10 @@ const userProxy = new Proxy(user, {
       }
     }
 
-    return new Reflect.set(target, property, value);
+    return Reflect.set(target, property, value);
   },
 });
+
+console.log(userProxy.age);
+userProxy.lastName = "James";
+console.log(userProxy.lastName);
